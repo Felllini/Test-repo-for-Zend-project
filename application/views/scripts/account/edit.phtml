@@ -1,0 +1,19 @@
+<div class="left_main_container">
+    <?php $userModel = new Application_Model_Users()?>
+    <div class="profile_picture">
+        <?php echo $this->image('name', $userModel->getImageUrl($this->data['image']), array('alt' => 'image alt'), 'small'); ?>
+    </div>
+</div>
+<div class="center_main_container">
+    <div class="profile_name_description">
+        <h2><?php echo $this->headTitle()->getContainer();?></h2>
+        <p>test test test test test test test test test test test test test test test test test test test test test test test test test test test </p>
+    </div>
+    <div class="tab_content">
+        <?php
+            echo $this->errMessage;
+            echo $this->form;
+        ?>
+    </div>
+</div>
+<?php //echo $this->$view->headScript()->appendFile('/js/jquery.uploadify.v2.1.4.min.js'); ?>

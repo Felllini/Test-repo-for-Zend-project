@@ -1,0 +1,29 @@
+
+body {margin: 2px 5px; background-color: #ebefeb; }
+a, p, h1, h2, h3, h4 {font-family: "Comic Sans MS", cursive, sans-serif}
+a, p {font-size: 14px;}
+a {text-decoration: none; color: black; }
+a:hover { text-decoration: none; color: white;}
+
+.clearer {clear: both}
+
+.main_frame { padding: 0 200px; }
+.main_frame .full-header { }
+.main_frame .full-header .header { width: 100%; height: 150px; overflow: hidden; clear: both;}
+.main_frame .full-header .header .header-top { background:  url(../images/header-top.png) repeat-x; height: 20px}
+.main_frame .full-header .header .header-left { background:  url(../images/header-left.png) repeat-x; height: 150px; float: left; }
+.main_frame .full-header .header .header-left .logo {padding: 10px 0 0 20px;}
+.main_frame .full-header .header .header-right { background:  url(../images/header-right.png) no-repeat; height: 150px; float:right; width:51%;}
+.main_frame .full-header .header .header-right .top_right_box { margin: 10px 40px; width: 200px; }
+
+.main_frame .top-wrapper { float:left; margin-right: 20px}
+.main_frame .right-content {}
+
+.top-menu {margin: 0;}
+.top-menu ul { margin: 0; list-style: none; padding: 7px 0; background-color: #646c83; }
+.top-menu ul li { display: inline;}
+.top-menu ul li a { padding: 9px 15px 7px;}
+.top-menu ul li a:hover { background-color: #fe4f12;}
+.top-menu ul li .main_menu_active { background-color: #fe4f12; }
+
+.main_frame .full-header .header .top_right_wrapper {}

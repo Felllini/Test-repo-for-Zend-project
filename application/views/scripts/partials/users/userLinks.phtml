@@ -1,0 +1,5 @@
+<?php $userModel = new Application_Model_Users(); ?>
+<?php $userLinks = $userModel->getUserLinks();?>
+<?php foreach($userLinks as $title=>$link) { ?>
+    <li><a class="in_active" title="" href="<?php echo $link;?>"><span><?php echo $title; ?></span></a></li>
+<?php } ?>

@@ -1,0 +1,79 @@
+<?php
+    $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
+    $this->headTitle()->setSeparator(' - ');
+    $this->headTitle('Felllini');
+?>
+<html>
+<head>
+    <?php echo $this->headTitle() ?>
+    <?php
+        echo $this->headLink()
+            ->appendStylesheet('/css/ui-lightness/jquery-ui-1.8.16.custom.css')
+            ->appendStylesheet('/css/styles.css');
+    ?>
+    <?php //echo $this->headStyle() ?>
+    <?php //echo $this->headScript() ?>
+    <?php echo $this->jQuery() ?>
+</head>
+<body>
+    <div class="main_frame">
+            <div class="full-header">
+                <div class="header">
+                    <div class="header-top">
+                    </div>
+                    <div class="header-left">
+                        <div class="logo">
+                            <a title="Felllini" href="/"><img src="../images/slice2.gif"></a>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <div class="top_right_box">
+                            <div class="top_links">
+                                <?php $topLinks = array('menu.phtml', 'default'); ?>
+                                <?php echo $this->navigation()
+                                        ->menu()
+                                        ->setMaxDepth(0)
+                                        ->setPartial($topLinks)
+                                        ->render(new My_Navigation($this->navigation()->findAllBy('tag','topLinks',true)));
+                                ?>
+                            </div>
+                        </div>
+                        <br class="clearer" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="top-wrapper">
+                <img src="../images/slice12.gif" />
+            </div>
+            <div class="right-content">
+                <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit.  Nunc eu lacus ac velit tristique molestie.  Donec vel augue in nisi aliquam feugiat sit amet nec velit. </p> <p>Pellentesque venenatis bibendum malesuada. Nam scelerisque, eros in fringilla dictum, nulla neque laoreet enim, eu pellentesque tortor sem sed ligula. Ut sed elit ac diam hendrerit egestas a eget purus.</p>
+            </div>
+            <div class="clearer"></div>
+            <div class="top-menu">
+                <?php $partial = array('menu.phtml', 'default'); ?>
+                <?php echo $this->navigation()
+                        ->menu()
+                        ->setMaxDepth(0)
+                        ->setPartial($partial)
+                        ->render(new My_Navigation($this->navigation()->findAllBy('tag','topMenu',true)));
+                ?>
+            </div>
+
+            <?php echo $this->layout()->content; ?>
+            <div class="block_brake">&nbsp;</div>
+            <div class="footer">
+                <p>
+                    <a title="Privacy Policy" href="#">Privacy Policy</a>
+                    |
+                    <a title="Terms & Conditions" href="#">Terms &amp; Conditions</a>
+                    |
+                    <a title="Contact Us" href="#">Contact Us</a>
+                    |
+                    <a title="About Us" href="#">About Us</a>
+                </p>
+                <span>&copy; Copyright 2012 Felllini. All Rights Reserved.</span>
+            </div>
+        </div>
+</body>
+</html>

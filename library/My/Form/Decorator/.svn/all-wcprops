@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/nowgorun/!svn/ver/33/trunk/library/My/Form/Decorator
+END
+ColorButton.php
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/nowgorun/!svn/ver/32/trunk/library/My/Form/Decorator/ColorButton.php
+END
+ViewHelper.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/nowgorun/!svn/ver/32/trunk/library/My/Form/Decorator/ViewHelper.php
+END
+Uploadify.php
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/nowgorun/!svn/ver/4/trunk/library/My/Form/Decorator/Uploadify.php
+END
+Date.php
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/nowgorun/!svn/ver/32/trunk/library/My/Form/Decorator/Date.php
+END
+Label.php
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/nowgorun/!svn/ver/33/trunk/library/My/Form/Decorator/Label.php
+END
+RequiredLabel.php
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/nowgorun/!svn/ver/33/trunk/library/My/Form/Decorator/RequiredLabel.php
+END
+FormElements.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/nowgorun/!svn/ver/33/trunk/library/My/Form/Decorator/FormElements.php
+END
+PlainText.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/nowgorun/!svn/ver/32/trunk/library/My/Form/Decorator/PlainText.php
+END

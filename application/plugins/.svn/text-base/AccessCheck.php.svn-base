@@ -1,0 +1,115 @@
+<?php
+class Application_Plugin_AccessCheck extends Zend_Controller_Plugin_Abstract
+{
+    private $_acl = null;
+    private $_auth = null;
+
+	const ACCESS_DENIED = 401;
+    /*
+     * Инициализируем данные
+     */
+    public function __construct()
+    {   
+        $this->_acl = $this->getRole();
+        $this->_auth = Zend_Auth::getInstance();
+    }
+    
+    protected function getRole()
+    {
+        $acl = new Zend_Acl();
+        
+        // Добавляем ресурсы нашего сайта,
+        // другими словами указываем контроллеры и действия
+        
+        // указываем, что у нас есть ресурс index
+        $acl->addResource('index');
+        
+        // указываем, что у нас есть ресурс error
+        $acl->addResource('error');
+        
+        // указываем, что у нас есть ресурс auth
+        $acl->addResource('user');
+        //$acl->addResource('articles');
+        
+        // ресурс login является потомком ресурса auth
+        $acl->addResource('login', 'user');
+        
+        $acl->addResource('teams');
+        $acl->addResource('races');
+        $acl->addResource('train');
+        $acl->addResource('causes');
+        $acl->addResource('coach');
+		$acl->addResource('template');
+        $acl->addResource('image');
+        
+        // ресурс logout является потомком ресурса auth
+        //$acl->addResource('logout', 'user');
+        //$acl->addResource('register', 'user');
+        
+        //$acl->addResource('admin');
+        
+        // далее переходим к созданию ролей, которых у нас 2:
+        // гость (неавторизированный пользователь)
+        $acl->addRole('guest');
+        
+        $acl->addRole('user', 'guest');
+        // администратор, который наследует доступ от гостя
+        $acl->addRole('coach', 'user');
+        $acl->addRole('admin', 'coach');
+        
+        // разрешаем гостю просматривать ресурс index
+        $acl->allow('guest', 'index', array('index', 'dashboard'));
+        $acl->allow('guest', 'image', array('resize'));
+        $acl->allow('guest', 'teams', array('index', 'viewall', 'search'));
+        $acl->allow('user', 'teams', array('viewmy', 'new', 'invite', 'trainer'));
+        
+        $acl->allow('guest', 'races', array('index', 'viewall', 'search'));
+        $acl->allow('user', 'races', array('viewmy', 'new', 'invite'));
+        
+        $acl->allow('guest', 'causes', array('index', 'viewall', 'search'));
+        $acl->allow('user', 'causes', array('viewmy', 'new', 'invite'));
+
+		$acl->allow('admin', 'template', array('index', 'new', 'edit', 'save', 'list', 'load-subcategories'));
+        
+        // разрешаем гостю просматривать ресурс auth и его подресурсы
+        $acl->allow('guest', 'user', array('index', 'login', 'register', 'register2', 'test'));
+        //$acl->allow('guest', 'train', array('index'));
+        // даём администратору доступ к ресурсам 'add', 'edit' и 'delete'
+        $acl->allow('user', 'user', array('index' ,'logout', 'view', 'manage', 'settings'));
+        $acl->deny('user', 'user', array('register'));
+        
+        $acl->allow('guest', 'train', array('index', 'support'));
+        $acl->allow('user', 'train', array('configure', 'statistic', 'calendar', 'addlog', 'shedule', 'progress'));
+        
+        $acl->allow('coach', 'coach', array('index', 'list', 'item', 'new', 'copy', 'delete', 'share', 'workoutlist', 'newworkout', 'workout', 'editworkout'));
+        //$acl->allow('guest', 'train', array('index', 'configure', 'support', 'statistic', 'progress', 'addlog'));
+        // разрешаем администратору просматривать страницу ошибок
+        $acl->allow('admin', 'error');
+        
+        Zend_View_Helper_Navigation_HelperAbstract::setDefaultAcl($acl);
+        
+        return $acl;
+    }
+    
+    public function preDispatch(Zend_Controller_Request_Abstract $request) {
+        // get current controller
+        $resource = $request->getControllerName();
+        
+        // get current action
+        $action = $request->getActionName();
+        
+
+        // get role
+        $identity = $this->_auth->getStorage()->read();
+
+		$role = !empty($identity->role) ? $identity->role : 'guest';
+        
+        Zend_View_Helper_Navigation_HelperAbstract::setDefaultRole($role);
+        // если пользователь не допущен до данного ресурса,
+        // то отсылаем его на страницу авторизации 
+        if (!$this->_acl->isAllowed($role, $resource, $action)) {
+            //$request->setControllerName('user')->setActionName('login');
+			//throw new Zend_Acl_Exception("This page is not accessible.", Application_Plugin_AccessCheck::ACCESS_DENIED);
+        }
+    }
+}

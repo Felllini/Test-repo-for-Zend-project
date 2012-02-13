@@ -1,0 +1,124 @@
+<?php
+    $this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
+    $this->headTitle()->setSeparator(' - ');
+    $this->headTitle('NowGoRun');
+    echo $this->doctype();
+?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <?php
+        // view meta tags
+        echo $this->headMeta();
+    ?>
+    <?php
+        // view title of site
+        echo $this->headTitle();
+    ?>
+    <?php
+        $this->addHelperPath("ZendX/JQuery/View/Helper", "ZendX_JQuery_View_Helper");
+        echo $this->jQuery()
+           ->setVersion("1.4.2")
+           ->uiEnable();
+
+		$this->headScript()
+			->appendFile('/js/public.js')
+			->appendFile('/js/jquery.input-focus.js')
+			->appendFile('/js/fullcalendar.js');
+		echo $this->headScript();
+    ?>
+</head>
+    <body>
+        <div class="main_frame">
+            <div class="full-header">
+                <div class="header">
+                <div class="logo">
+                    <a title="Now Go Run" href="/"><img src="/images/public/logo.png" alt="Now Go Run"></a>
+                </div>
+                <div class="top_right_wrapper">
+                    <div class="top_right_login_box">
+                        <?php //echo $this->authForm($this->authForm);?>
+                        <?php if (Zend_Auth::getInstance()->hasIdentity()) {?>
+                            <div class="top_right_box top_right_box_left_border">
+                                <ul>
+                                    <li><a href="#"><span>Settings</span></a></li>
+                                    <li><a href="#"><span>Help</span></a></li>
+                                    <li><a href="<?php echo $this->baseUrl()?>/user/logout"><span>Logout</span></a></li>
+                                </ul>
+                                <p>
+                                    <b>Account Balance:</b>
+                                        <span id="accountBalance">-//-</span>
+                                    <br>
+                                    <a title="" href="#">(more info)</a>
+                                </p>
+                            </div>
+                        <?php } else { ?>
+                            <?php $form = $this->auth;?>
+                            <div class="register-tmp" >
+                                <a href="<?php echo $this->baseUrl()?>/user/register"><span style="color: red;">Register</span></a>
+                            </div>
+                            <form style="float: right;" id="loginForm" method="<?php echo $form->getMethod() ?>" action="<?php echo $form->getAction()?>">
+                                <p>
+                                    <?php echo $form->email->getLabel() . $form->email->renderViewHelper() ?>
+                                </p>
+                                <p>
+                                    <?php echo $form->password->getLabel() . $form->password->renderViewHelper() ?>
+                                    <?php echo $this->formImage('image', '/images/public/btn-top-login.gif') ?>
+                                </p>
+                            </form>
+                        <?php } ?>
+                      </div>
+                      <?php if (Zend_Auth::getInstance()->hasIdentity()) {?>
+                          <div class="top_right_box">
+                                <ul>
+                                    <li>
+                                        <a title="" href="#">
+                                            <span>Friends (2)</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a title="" href="<?php echo $this->baseUrl()?>/user/view">
+                                            <span>My Profile</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                          </div>
+                         <?php } ?>
+                </div>
+            </div>
+            </div>
+            <div class="top_menu_wrapper">
+                <div class="top_menu_left_bg">
+                    <img width="13" height="41" alt="" src="/images/public/main-menu-left-bg.jpg" />
+                </div>
+                <?php $partial = array('menu.phtml', 'default'); ?>
+                <?php echo $this->navigation()
+                        ->menu()
+                        ->setMaxDepth(0)
+                        ->setPartial($partial)
+                        ->render(new My_Navigation($this->navigation()->findAllBy('tag','topMenu',true)));
+                ?>
+                <div class="top_menu_right_bg">
+                    <img width="13" height="41" alt="" src="/images/public/main-menu-right-bg.jpg" />
+                </div>
+                <div class="block_brake">&nbsp;</div>
+            </div>
+            <?php echo $this->layout()->content; ?>
+            <div class="block_brake">&nbsp;</div>
+            <div class="footer">
+                <p>
+                    <a title="Privacy Policy" href="#">Privacy Policy</a>
+                    |
+                    <a title="Terms & Conditions" href="#">Terms &amp; Conditions</a>
+                    |
+                    <a title="Forum" href="#">Forum</a>
+                    |
+                    <a title="Contact Us" href="#">Contact Us</a>
+                    |
+                    <a title="About Us" href="#">About Us</a>
+                </p>
+                <span>&copy; Copyright 2011 NowGoRun. All Rights Reserved.</span>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,58 @@
+<div class="couches-top-pagination-right">
+    <!--
+    See http://developer.yahoo.com/ypatterns/pattern.php?pattern=searchpagination
+    -->
+
+    <?php if ($this->pageCount): ?>
+    <div class="paginationControl">
+    <!-- Previous page link -->
+    <?php if (isset($this->previous)): ?>
+      <a href="<?php echo $this->url(array('page' => $this->previous)); ?>">
+         Prev
+      </a> |
+    <?php endif; ?>
+
+    <!-- Numbered page links -->
+    <?php foreach ($this->pagesInRange as $page): ?>
+      <?php if ($page != $this->current): ?>
+        <a href="<?php echo $this->url(array('page' => $page)); ?>">
+            <?php echo $page; ?>
+        </a>
+      <?php else: ?>
+        <?php echo '<strong>'.$page.'</strong>'; ?>
+      <?php endif; ?>
+    <?php endforeach; ?>
+
+    <!-- Next page link -->
+    <?php if (isset($this->next)): ?> |
+      <a href="<?php echo $this->url(array('page' => $this->next)); ?>">
+        Next
+      </a>
+    <?php endif; ?>
+    </div>
+    <?php endif; ?>
+</div>
+
+
+<?php if ($this->pageCount): ?>
+<strong>&nbsp;&nbsp;&nbsp;Go to&nbsp;&nbsp;</strong>
+<select id="paginationControl" size="1">
+<?php foreach ($this->pagesInRange as $page): ?>
+  <?php $selected = ($page == $this->current) ? ' selected="selected"' : ''; ?>
+  <option value="<?php
+        echo $this->url(array('page' => $page));?>"<?php echo $selected ?>>
+    <?php echo $page; ?>
+  </option>
+<?php endforeach; ?>
+</select>
+<?php endif; ?>
+
+<script type="text/javascript">
+$('#paginationControl').change(function() {
+    window.location = this.options[this.selectedIndex].value;
+})
+</script>
+
+
+
+

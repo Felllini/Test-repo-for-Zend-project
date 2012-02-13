@@ -1,0 +1,30 @@
+<div class="left_main_container">
+    <?php echo $this->render('partials/users/leftCol.phtml');?>    
+</div>
+<div class="center_main_container">
+    <div class="profile_name_description">
+        <h2><?php echo $this->headTitle()->getContainer();?></h2>
+        <p>test test test test test test test test test test test test test test test test test test test test test test test test test test test </p>
+    </div>
+    <div class="tab_content_wrapper">
+        <div class="tab_links_top">
+            <ul>
+                <li><a class="in_active" title="" href="#"><span><?php echo _('Profile')?></span></a></li>
+                <li><a class="in_active" title="" href="#"><span><?php echo _('Photos')?></span></a></li>
+            </ul>
+        </div>
+        <div class="tab_content">
+            <?php
+                echo $this->errMessage;
+                echo $this->form;
+            ?>
+        </div>
+        <div class="tab_links_bottom">
+            <ul>
+                <li><a class="in_active" title="" href="#"><span><?php echo _('Profile')?></span></a></li>
+                <li><a class="in_active" title="" href="#"><span><?php echo _('Photos')?></span></a></li>
+            </ul>
+        </div>
+        <?php //print_r($this->data)?>
+    </div>
+</div>

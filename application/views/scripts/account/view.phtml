@@ -1,0 +1,33 @@
+<div class="left_main_container">
+    <div class="user_image">
+        <?php echo $this->render('partials/users/leftCol.phtml');?>
+    </div>
+</div>
+<?php $userModel = new Application_Model_Users(); ?>
+<div class="center_main_container">
+    <div class="profile_name_description">
+        <h2><?php print_r($userModel->getCurrentUserName())?></h2>
+        <p>test test test test test test test test test test test test test test </p>
+    </div>
+    <div class="tab_content_wrapper">
+        <div class="tab_links_top">
+            <ul>
+                <?php echo $this->render('partials/users/userLinks.phtml');?>
+            </ul>
+        </div>
+        <div class="tab_content">
+            <table>
+                <tbody>
+                    <tr>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tab_links_bottom">
+            <ul>
+                <?php echo $this->render('partials/users/userLinks.phtml');?>
+            </ul>
+        </div>
+    </div>
+</div>
