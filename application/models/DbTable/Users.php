@@ -3,10 +3,9 @@
 class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 {
 
-    protected $_name = 'users';
+    protected $_name = '`';
 
-    public function createUser($email, $password, $role, $firstname, $lastname)
-    {
+    public function createUser($email, $password, $role, $firstname, $lastname){
         $data = array(
             'email' => $email,
             'password' => $password,
