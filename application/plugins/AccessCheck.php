@@ -19,7 +19,6 @@ class Application_Plugin_AccessCheck extends Zend_Controller_Plugin_Abstract
         $acl = new Zend_Acl();
 
         $acl->addResource('index');
-
         $acl->addResource('error');
 
         $acl->addResource('users');
@@ -31,14 +30,11 @@ class Application_Plugin_AccessCheck extends Zend_Controller_Plugin_Abstract
         //$acl->addResource('login', 'users');
 
         $acl->addRole('guest');
-
         $acl->addRole('user', 'guest');
-
         $acl->addRole('admin', 'user');
 
         $acl->allow('guest', 'index', array('index'));
         $acl->allow('guest', 'error', array('page404'));
-
 
         $acl->allow('guest', 'users', array('index', 'login', 'register'));
         $acl->allow('guest', 'news', array('index'));
@@ -50,8 +46,6 @@ class Application_Plugin_AccessCheck extends Zend_Controller_Plugin_Abstract
         $acl->allow('user', 'message', array('index'));
         $acl->deny('user', 'users', array('register', 'login'));
 
-
-
         $acl->allow('admin', 'error');
 
         Zend_View_Helper_Navigation_HelperAbstract::setDefaultAcl($acl);
@@ -60,12 +54,12 @@ class Application_Plugin_AccessCheck extends Zend_Controller_Plugin_Abstract
     }
 
     public function preDispatch(Zend_Controller_Request_Abstract $request) {
+
         // get current controller
         $resource = $request->getControllerName();
 
         // get current action
         $action = $request->getActionName();
-
 
         // get role
         $identity = $this->_auth->getStorage()->read();

@@ -3,8 +3,8 @@
 class Application_Form_MessageSend extends Zend_Form
 {
 
-    public function init()
-    {
+    public function init(){
+
         /* Form Elements & Other Definitions Here ... */
     }
 
@@ -34,7 +34,5 @@ class Application_Form_MessageSend extends Zend_Form
 
         $this->addElements(array($recipient, $message, $submit));
     }
-
-
 }
 

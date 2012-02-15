@@ -2,10 +2,15 @@
 
 class Application_Model_Message{
 
-    function sendMessage($user, $message){
+    public function __construct(){
 
-        $db = new Application_Model_DbTable_Message();
-        $db->sendToUser($user, $message);
+        $this->db = new Application_Model_DbTable_Message();
+
+    }
+
+    public function sendMessage($user, $message){
+
+        $this->db->sendToUser($user, $message);
 
     }
 
