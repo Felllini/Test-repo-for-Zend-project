@@ -31,7 +31,7 @@ return array(
                 'module' => 'default',
                 'controller' => 'news',
                 'action' => 'index',
-                'resource'      => 'index',
+                'resource'      => 'news',
                 'privilege'     => 'news',
 //                'pages' => array (
 //                    array (
@@ -48,6 +48,18 @@ return array(
 //                        'resource'      => 'train',
 //                        'privilege'     => 'support'
 //                    ),
+            ),
+            array
+            (
+                'label' => 'Messages',
+                'tag' => 'topMenu',
+                'route' => 'default',
+                'module' => 'default',
+                'controller' => 'message',
+                'action' => 'index',
+                'resource'      => 'message',
+                'privilege'     => 'message',
+
             ),
             array (
                 'label' => 'Log In/Register',

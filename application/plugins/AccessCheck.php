@@ -26,6 +26,7 @@ class Application_Plugin_AccessCheck extends Zend_Controller_Plugin_Abstract
         $acl->addResource('news');
         $acl->addResource('account');
         $acl->addResource('image');
+        $acl->addResource('message');
 
         //$acl->addResource('login', 'users');
 
@@ -46,7 +47,9 @@ class Application_Plugin_AccessCheck extends Zend_Controller_Plugin_Abstract
 
         $acl->allow('user', 'users', array('index' ,'logout'));
         $acl->allow('user', 'account', array('index', 'edit'));
+        $acl->allow('user', 'message', array('index'));
         $acl->deny('user', 'users', array('register', 'login'));
+
 
 
         $acl->allow('admin', 'error');
