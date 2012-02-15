@@ -40,7 +40,9 @@
         <dbTableDirectory>
           <dbTableFile dbTableName="Users"/>
           <dbTableFile dbTableName="Countries"/>
+          <dbTableFile dbTableName="Message"/>
         </dbTableDirectory>
+        <modelFile modelName="Message"/>
       </modelsDirectory>
       <modulesDirectory enabled="false"/>
       <viewsDirectory>
