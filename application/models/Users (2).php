@@ -2,6 +2,7 @@
 
 class Application_Model_Users
 {
+
     public  $id;
     public  $firstname;
     public  $lastname;
@@ -11,22 +12,17 @@ class Application_Model_Users
         $userId = Zend_Auth::getInstance()->getIdentity()->id;
         $userModel = new Application_Model_DbTable_Users();
         $userData = $userModel->getUser($userId);
-        
+
         $firstname = $userData['firstname'];
         $lastname = $userData['lastname'];
-        
+
         return $firstname . " " . $lastname;
     }
-    
+
     public function getUserName(){
         return $this->firstname . ' ' . $this->lastname;
     }
-    
-    public function getUserLinks() {
-        $links = array('Wall' => '#', 'Training' => '#', 'Profile' => '#', 'Friends' => '#', 'Forum' => '#', 'Media' => '#', 'Photos' => '#',);
-        return $links;
-    }
-    
+
     public function getImageUrl($image = false, $id = false) {
         if (!$image){
             $image = $this->image;
@@ -35,13 +31,13 @@ class Application_Model_Users
         if (!$id){
             $id = $this->id;
         }
-        
+
         if ($id){
             $useId = $id;
         } else {
             $useId = current(explode('_', $image));
         }
-        
+
         if ($image=='')
             $url = '/images/public/no-avatar-200.png'; // .
         else
@@ -72,24 +68,12 @@ class Application_Model_Users
                 $this->$key=$value;
         }
     }
-    
-    /*public function updateSession($id) {
-        $users = new Application_Model_DbTable_Users();
-        $userData = $users->getUserData($id);
-         
-        unset($userData['password']);
-         
-        $stdUser = new stdClass();
-         
-        foreach ($userData as $key => $value) 
-        { 
-           $stdUser->$key = $value; 
-        }
-        print_r($stdUser); 
-        $auth = Zend_Auth::getInstance();
-        print_r($auth);      
-        //$auth->getStorage()->write($stdUser);
-    }*/
-    
+
+    public function getCountryList() {
+        $countriesModel = new Application_Model_DbTable_Countries();
+        $countryList = $countriesModel->getCountryList();
+        return $countryList;
+    }
+
 }
 

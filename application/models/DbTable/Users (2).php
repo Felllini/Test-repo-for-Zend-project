@@ -1,84 +1,79 @@
 <?php
 
-class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
+class Application_Model_Users
 {
 
-    protected $_name = 'users';
+    public  $id;
+    public  $firstname;
+    public  $lastname;
+    public  $image;
 
-    public function createUser($email, $password, $role)
-    {
-        $data = array(
-            'email' => $email,
-            'password' => $password,
-            'role' => $role,
-        );
-        
-        $this->insert($data);
+    public function getCurrentUserName() {
+        $userId = Zend_Auth::getInstance()->getIdentity()->id;
+        $userModel = new Application_Model_DbTable_Users();
+        $userData = $userModel->getUser($userId);
+
+        $firstname = $userData['firstname'];
+        $lastname = $userData['lastname'];
+
+        return $firstname . " " . $lastname;
     }
-    
-    public function updateUser($id, $firstname, $lastname, $location, $picture)
-    {
-        $data = array(
-            'firstname' => $firstname,
-            'lastname' => $lastname,
-            'location' => $location,
-            'image' => $picture
-        );
-        
-        $this->update($data, 'id = ' . (int)$id);
+
+    public function getUserName(){
+        return $this->firstname . ' ' . $this->lastname;
     }
-    
-    public function getUserName($id)
-    {
-        $id = (int)$id;
- 
-        // Используем метод fetchRow для получения записи из базы.
-        // В скобках указываем условие выборки (привычное для вас where)
-        $data = $this->select()
-             ->from('users',
-                    array('firstname', 'lastname'))
-             ->where('id = ?', $id);
-             
-        if(!$data) {
-            throw new Exception("Нет записи с id - $id");
+
+    public function getImageUrl($image = false, $id = false) {
+        if (!$image){
+            $image = $this->image;
         }
 
-        return $data->toArray();
-
-    }
-
-    public function getUsersListByRole($role = 'user')
-    {
-        $data = $this->select()
-             ->from('users',
-                    array('firstname', 'lastname', 'id', 'image'))
-             ->where('role = ?', $role);
-
-        return $data->query()->fetchAll();
-    }
-    
-    /*public function getUserData($id)
-    {
-        $select = $this->select()
-                 ->from('users')
-                 ->where('id = ?', $id);
-        $stmt = $select->query();
-        $result = $stmt->fetchAll();
-        return $result;
-    }*/
-    
-    public function getUser($id)
-    {
-        $id = (int)$id;
-
-        $row = $this->fetchRow('id = ' . $id);
-
-        if(!$row) {
-            return '';
+        if (!$id){
+            $id = $this->id;
         }
 
-        return $row->toArray();
+        if ($id){
+            $useId = $id;
+        } else {
+            $useId = current(explode('_', $image));
+        }
+
+        if ($image=='')
+            $url = '/images/public/no-avatar-200.png'; // .
+        else
+            $url = '/media/' . $useId . '/ava/' . $image; // .
+
+        return $url;
     }
-     
+
+    // Get users list from DB by role.
+    // return array of this class with setted attributes
+    public static function getUsersListByRole($role){
+        $userModel = new Application_Model_DbTable_Users();
+        $users_list = $userModel->getUsersListByRole($role);
+
+        $results_array = array();
+        foreach ($users_list as $user_data){
+            $user = new Application_Model_Users();
+            $user->setUserDataArray($user_data);
+            $results_array[] = $user;
+        }
+        return $results_array;
+    }
+
+    // set user attributes
+    // insert array $key = this class attribute. $value = this class attribute value
+    private function setUserDataArray($data){
+        foreach ($data as $key=>$value){
+                $this->$key=$value;
+        }
+    }
+
+    public function getCountryList() {
+        $countriesModel = new Application_Model_DbTable_Countries();
+        $countryList = $countriesModel->getCountryList();
+        return $countryList;
+    }
+
 }
 
