@@ -10,18 +10,18 @@ class UsersController extends Zend_Controller_Action
 
     public function indexAction()
     {
-//        $userId = $this->getRequest()->getParam('id');
-//
-//        $users = new Application_Model_DbTable_Users();
-//
-//        $user = $users->getUser($userId);
-//        if($user) {
-//            $userData = $user;
-//        } else {
-//            $this->_helper->redirector('pageNotFound','users');
-//        }
-//
-//        $this->view->userData = $userData;
+        $userId = $this->getRequest()->getParam('id');
+
+        $users = new Application_Model_DbTable_Users();
+
+        $user = $users->getUser($userId);
+        if($user) {
+            $userData = $user;
+        } else {
+            $this->_helper->redirector('page404','error');
+        }
+
+        $this->view->userData = $userData;
     }
 
     public function loginAction()
