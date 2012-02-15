@@ -17,7 +17,8 @@ class MessageController extends Zend_Controller_Action
 
     public function indexAction(){
 
-        // action body
+        $message = new Application_Form_MessageSend();
+        $this->view->form = $message;
 
     }
 
