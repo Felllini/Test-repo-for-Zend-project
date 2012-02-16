@@ -1,4 +1,17 @@
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>Users</b> and script/action name <b>index</b></p>
+<div class="left_main_container">
+    <?php $userModel = new Application_Model_Users()?>
+    <?php $model = new Application_Model_DbTable_Countries?>
+    <div class="profile_picture">
+        <?php echo $this->image('name', $userModel->getImageUrl($this->data['image']), array('alt' => 'image alt'), 'small'); ?>
+        <?php //die;?>
+    </div>
+</div>
+<?php $userModel = new Application_Model_Users(); ?>
+<div class="center_main_container">
+    <div class="profile_name_description">
+        <!-- <h2><?php //print_r($userModel->getCurrentUserName())?></h2> -->
+        <?php $userId = $this->userData['id']?>
+        <h2><?php echo $userModel->getUserName($userId) ?></h2>
+<!--        <p>test test test test test test test test test test test test test test </p>-->
+    </div>
 </div>

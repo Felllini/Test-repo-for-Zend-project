@@ -90,6 +90,15 @@ return array(
                 'action' => 'index',
                 'resource'      => 'account',
                 'privilege'     => 'account'
+            ),
+            array (
+                'label' => 'Friends',
+                'tag' => 'topLinks',
+                'route' => 'default',
+                'module' => 'default',
+                'controller' => 'friends',
+                'action' => 'people',
+                'resource'      => 'friends',
             )
         )
     )

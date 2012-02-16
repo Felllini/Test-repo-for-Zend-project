@@ -19,8 +19,32 @@ class Application_Model_Users
         return $firstname . " " . $lastname;
     }
 
-    public function getUserName(){
-        return $this->firstname . ' ' . $this->lastname;
+    public function getUser($userId) {
+
+        $userModel = new Application_Model_DbTable_Users();
+        $userData = $userModel->getUser($userId);
+
+        return $userData;
+    }
+
+    public function getUserList() {
+
+        $userModel = new Application_Model_DbTable_Users();
+        $userData = $userModel->getUserList();
+
+        return $userData;
+    }
+
+//    public function getUserName(){
+//        return $this->firstname . ' ' . $this->lastname;
+//    }
+
+    public function getUserName($userId){
+        $userTable = new Application_Model_DbTable_Users();
+        $userName = $userTable->getUserName($userId);
+        $fullName = $userName['firstname'] . " " . $userName['lastname'];
+
+        return $fullName;
     }
 
     public function getImageUrl($image = false, $id = false) {

@@ -1,0 +1,7 @@
+<?php $userModel = new Application_Model_DbTable_Users;
+$users = $userModel->getUserList()?>
+<?php
+foreach($users as $user){
+     echo $user['firstname'];
+}
+?>

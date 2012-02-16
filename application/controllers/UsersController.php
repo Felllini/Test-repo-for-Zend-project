@@ -12,7 +12,7 @@ class UsersController extends Zend_Controller_Action
     {
         $userId = $this->getRequest()->getParam('id');
 
-        $users = new Application_Model_DbTable_Users();
+        $users = new Application_Model_Users();
 
         $user = $users->getUser($userId);
         if($user) {
@@ -143,10 +143,13 @@ class UsersController extends Zend_Controller_Action
                 $this->view->errMessage = 'Form data is not valid';
             }
         }
+
     }
 
 
 }
+
+
 
 
 

@@ -35,7 +35,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
         // Используем метод fetchRow для получения записи из базы.
         // В скобках указываем условие выборки (привычное для вас where)
-        $data = $this->select()
+        $data = $this->getAdapter()->select()
              ->from('users',
                     array('firstname', 'lastname'))
              ->where('id = ?', $id);
@@ -43,9 +43,21 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         if(!$data) {
             throw new Exception("Нет записи с id - $id");
         }
+        $userData = $data->query();
+        return $userData->fetch();
 
-        return $data->toArray();
+    }
 
+    public function getUserList()
+    {
+        $data = $this
+             ->getAdapter()
+             ->select()
+             ->from('users',
+                    array('firstname', 'lastname', 'id', 'image'))
+             ->where('status = ?', 0);
+
+        return $data->query()->fetchAll();
     }
 
     public function getUsersListByRole($role = 'user')
@@ -72,13 +84,13 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
     {
         $id = (int)$id;
 
-        $row = $this->fetchRow('id = ' . $id);
+        $data = $this
+            ->getAdapter()
+            ->select()
+            ->from('users')
+            ->where('id = ?', $id);
 
-        if(!$row) {
-            return '';
-        }
-
-        return $row->toArray();
+        return $data->query()->fetch();
     }
 }
 
