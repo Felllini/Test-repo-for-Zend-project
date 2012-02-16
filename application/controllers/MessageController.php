@@ -6,8 +6,7 @@
  * Skype: passika_web
  */
 
-class MessageController extends Zend_Controller_Action
-{
+class MessageController extends Zend_Controller_Action{
 
     public function init(){
 
@@ -17,8 +16,21 @@ class MessageController extends Zend_Controller_Action
 
     public function indexAction(){
 
-        // action body
+        $this->messageSend = new Application_Form_MessageSend();
+        $this->view->form = $this->messageSend;
 
+        $messageData = $this->getRequest()->getPost();
+
+        if ($this->messageSend->isValid($messageData)) {
+
+            $recipient = $this->getRequest()->getPost('recipient');
+            $message = $this->getRequest()->getPost('message');
+
+            $userId = Zend_Auth::getInstance()->getIdentity()->id;
+            $this->db = new Application_Model_DbTable_Message();
+            $this->db->sendToUser($recipient , $message , $userId);
+
+        }
     }
 
 }

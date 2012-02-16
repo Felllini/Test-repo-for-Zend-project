@@ -38,6 +38,7 @@
         <formFile formName="Login"/>
         <formFile formName="Auth"/>
         <formFile formName="Register"/>
+        <formFile formName="MessageSend"/>
       </formsDirectory>
       <layoutsDirectory enabled="false"/>
       <modelsDirectory>

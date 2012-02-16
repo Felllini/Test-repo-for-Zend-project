@@ -49,18 +49,6 @@ return array(
 //                        'privilege'     => 'support'
 //                    ),
             ),
-            array
-            (
-                'label' => 'Messages',
-                'tag' => 'topMenu',
-                'route' => 'default',
-                'module' => 'default',
-                'controller' => 'message',
-                'action' => 'index',
-                'resource'      => 'message',
-                'privilege'     => 'message',
-
-            ),
             array (
                 'label' => 'Log In/Register',
                 'tag' => 'topLinks',
@@ -99,7 +87,20 @@ return array(
                 'controller' => 'friends',
                 'action' => 'people',
                 'resource'      => 'friends',
+            ),
+            array
+            (
+                'label' => 'Messages',
+                'tag' => 'topLinks',
+                'route' => 'default',
+                'module' => 'default',
+                'controller' => 'message',
+                'action' => 'index',
+                'resource'      => 'message',
+                'privilege'     => 'message',
+
             )
+
         )
     )
 );
