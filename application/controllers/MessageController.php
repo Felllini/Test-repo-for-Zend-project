@@ -8,13 +8,6 @@
 
 class MessageController extends Zend_Controller_Action{
 
-    public function __construct(){
-
-        $this->messageSend = new Application_Form_MessageSend();
-        $this->send = new Application_Model_Message();
-
-    }
-
     public function init(){
 
         /* Initialize action controller here */
@@ -23,6 +16,7 @@ class MessageController extends Zend_Controller_Action{
 
     public function indexAction(){
 
+        $this->messageSend = new Application_Form_MessageSend();
         $this->view->form = $this->messageSend;
 
         $messageData = $this->getRequest()->getPost();
@@ -32,7 +26,9 @@ class MessageController extends Zend_Controller_Action{
             $recipient = $this->getRequest()->getPost('recipient');
             $message = $this->getRequest()->getPost('message');
 
-            $this->send->sendMessage($recipient , $message);
+            $userId = Zend_Auth::getInstance()->getIdentity()->id;
+            $this->db = new Application_Model_DbTable_Message();
+            $this->db->sendToUser($recipient , $message , $userId);
 
         }
     }
