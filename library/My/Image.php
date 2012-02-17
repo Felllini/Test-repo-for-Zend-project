@@ -11,13 +11,13 @@ class My_Image
     const IMAGETYPE_JPEG = 'jpeg';
     const IMAGETYPE_PNG = 'png';
     const IMAGETYPE_JPG ='jpg';
-    
+
     public function setView($view)
     {
         $this->_view = $view;
-    return $this;    
+    return $this;
     }
-    
+
     protected function _newDimension($forDim,$maxWidth,$maxHeight)
     {
       if ($this->_width > $maxWidth)
@@ -75,7 +75,7 @@ class My_Image
             return $this->_height;
       }
     }
-    
+
     public function open($filename)
     {
         $this->_filename = $filename;
@@ -124,7 +124,7 @@ class My_Image
             break;
         }
     }
-    
+
     public function display($_quality=null, $_filters=null)
     {
         if($this->_view instanceof Zend_View) {
@@ -134,19 +134,20 @@ class My_Image
         }
         return $this->_output(null,$_quality, $_filters);
     }
-    
+
     public function save($_saveIn=null, $_quality=null, $_filters=null)
-    {  
+    {
         return $this->_output($_saveIn,$_quality, $_filters);
     }
-    
+
     public function __destruct()
     {
         @imagedestroy($this->_image);
     }
-    
+
     protected function _setInfo()
     {
+        //die($this->_filename);
         $imgSize = @getimagesize($this->_filename);
         if(!$imgSize) {
             throw new Exception('Could not extract image size.');
@@ -157,17 +158,17 @@ class My_Image
         $this->_height = $imgSize[1];
         $this->_mimeType = $imgSize['mime'];
     }
-    
+
     public function getWidth()
     {
         return $this->_width;
     }
-    
+
     public function getHeight()
     {
         return $this->_height;
     }
-    
+
     protected function _refreshDimensions()
     {
         $this->_height = imagesy($this->_image);
@@ -176,7 +177,7 @@ class My_Image
 
     /**
      * If image is GIF or PNG keep transparent colors
-     * 
+     *
      * @credit http://github.com/maxim/smart_resize_image/tree/master
      * @param $image src of the image
      * @return the modified image
@@ -184,44 +185,44 @@ class My_Image
     protected function _handleTransparentColor($image=null)
     {
         $image = is_null($image)? $this->_image : $image;
-        
+
         if ( ($this->_mimeType == self::IMAGETYPE_GIF) || ($this->_mimeType == self::IMAGETYPE_PNG) ) {
               $trnprt_indx = imagecolortransparent($this->_image);
- 
+
               // If we have a specific transparent color
               if ($trnprt_indx >= 0) {
                 // Get the original image's transparent color's RGB values
                 $trnprt_color    = imagecolorsforindex($this->_image, $trnprt_indx);
-         
+
                 // Allocate the same color in the new image resource
                 $trnprt_indx    = imagecolorallocate($image, $trnprt_color['red'], $trnprt_color['green'], $trnprt_color['blue']);
-         
+
                 // Completely fill the background of the new image with allocated color.
                 imagefill($image, 0, 0, $trnprt_indx);
-         
+
                 // Set the background color for new image to transparent
                 imagecolortransparent($image, $trnprt_indx);
               } elseif ($this->_mimeType == self::IMAGETYPE_PNG) {
                  // Always make a transparent background color for PNGs that don't have one allocated already
                 // Turn off transparency blending (temporarily)
                 imagealphablending($image, false);
-         
+
                 // Create a new transparent color for image
                 $color = imagecolorallocatealpha($image, 0, 0, 0, 127);
-         
+
                 // Completely fill the background of the new image with allocated color.
                 imagefill($image, 0, 0, $color);
-         
+
                 // Restore transparency blending
                 imagesavealpha($image, true);
               }
          return $image;
-        }        
+        }
     }
-    
+
     /**
      * Resize image based on max width and height
-     * 
+     *
      * @param integer $maxWidth
      * @param integer$maxHeight
      * @return resized image
@@ -232,14 +233,14 @@ class My_Image
             $this->_handleTransparentColor();
             return $this;
         }
-        
+
         $newWidth = $this->_newDimension('w', $maxWidth, $maxHeight);
         $newHeight = $this->_newDimension('h', $maxWidth, $maxHeight);
-            
+
            $newImage = imagecreatetruecolor( $newWidth, $newHeight );
         $this->_handleTransparentColor($newImage);
         imagecopyresampled($newImage, $this->_image, 0, 0, 0, 0, $newWidth, $newHeight, $this->_width, $this->_height);
-    
+
         $this->_image = $newImage;
         $this->_refreshDimensions();
      return $this;

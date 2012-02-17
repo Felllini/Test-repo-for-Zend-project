@@ -1,6 +1,6 @@
 <?php
-class My_View_Helper_Image_Action_Thumbnail
-    implements My_View_Helper_Image_ActionInterface
+class My_View_Helper_Html_Image_Action_Thumbnail
+    implements My_View_Helper_Html_Image_ActionInterface
 {
     public function build($imageInstance) {
         // add your code to generate thumbnail
