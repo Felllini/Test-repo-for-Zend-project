@@ -18,9 +18,12 @@ foreach ($this->container as $page)
             $aClass = ($page->_controller == $controllerName) ? 'main_item main_menu_active' : 'main_item';
         }
         if($iterator == 0){ $liClass = 'menu_first';} elseif($iterator == 5){ $liClass = 'menu_last'; }
-        $html[] = '<li class="'. $liClass .'">';
+        $html [] = '<li class="'. $liClass .'">';
         $html [] = '<a href="' . $page->getHref () . '" class="' . $aClass .'" id="' . $page->tag . "_" . strtolower($page->getLabel()) . '">';
-        $html [] = "<span>" . $page->getLabel () . "</span></a>";
+        $html [] = "<span>";
+        $html [] =  $page->getLabel();
+        $html [] = ($page->getLabel() == 'Messages') ? '(3)' : '';
+        $html [] = "</span></a>";
         if (!empty($page->pages) )
         {
             $ulClass =  ($page->_controller == $controllerName) ? 'block' : 'none';
