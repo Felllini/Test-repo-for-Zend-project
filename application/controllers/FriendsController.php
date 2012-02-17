@@ -16,6 +16,12 @@ class FriendsController extends Zend_Controller_Action
     public function peopleAction()
     {
         $this->_helper->layout()->getView()->headTitle('People');
+
+        $userModel = new Application_Model_Users;
+        $users = $userModel->getUserList();
+
+        $this->view->users = $users;
+
     }
 
 

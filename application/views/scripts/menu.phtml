@@ -19,7 +19,7 @@ foreach ($this->container as $page)
         }
         if($iterator == 0){ $liClass = 'menu_first';} elseif($iterator == 5){ $liClass = 'menu_last'; }
         $html[] = '<li class="'. $liClass .'">';
-        $html [] = '<a href="' . $page->getHref () . '" class="' . $aClass .'">';
+        $html [] = '<a href="' . $page->getHref () . '" class="' . $aClass .'" id="' . $page->tag . "_" . strtolower($page->getLabel()) . '">';
         $html [] = "<span>" . $page->getLabel () . "</span></a>";
         if (!empty($page->pages) )
         {

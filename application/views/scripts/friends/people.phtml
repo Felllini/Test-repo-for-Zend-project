@@ -1,7 +1,17 @@
-<?php $userModel = new Application_Model_DbTable_Users;
-$users = $userModel->getUserList()?>
-<?php
-foreach($users as $user){
-     echo $user['firstname'];
-}
-?>
+<?php $users = $this->users;?>
+<?php $userModel = new Application_Model_Users()?>
+<div class="user-list">
+<ul>
+<?php foreach($users as $user): ?>
+     <li>
+         <div class="profile_picture">
+             <?php echo $this->image('name', $userModel->getImageUrl($user['image']), array('alt' => 'image alt'), 'small'); ?>
+             <?php //die($user['image'])?>
+         </div>
+         <div class="user-data">
+            <?php echo $user['firstname'] . " " . $user['lastname']; ?>
+         </div>
+     </li>
+<?php endforeach; ?>
+</ul>
+</div>
