@@ -11,6 +11,11 @@ class MessageController extends Zend_Controller_Action{
     public function init(){
 
         /* Initialize action controller here */
+        $this->db = new Application_Model_DbTable_Message();
+        $this->userId = Zend_Auth::getInstance()->getIdentity()->id;
+        $this->result = $this->db->checkNewMessage($this->userId);
+
+        $this->view->count = (count($this->result) > 0) ? '(' . count($this->result) . ')' : '' ;
 
     }
 
@@ -23,14 +28,13 @@ class MessageController extends Zend_Controller_Action{
 
         if ($this->messageSend->isValid($messageData)) {
 
-            $recipient = $this->getRequest()->getPost('recipient');
-            $message = $this->getRequest()->getPost('message');
+            $this->recipient = $this->getRequest()->getPost('recipient');
+            $this->message = $this->getRequest()->getPost('message');
 
-            $userId = Zend_Auth::getInstance()->getIdentity()->id;
-            $this->db = new Application_Model_DbTable_Message();
-            $this->db->sendToUser($recipient , $message , $userId);
+            $this->db->sendToUser($this->recipient , $this->message , $this->userId);
 
         }
+
     }
 
 }
