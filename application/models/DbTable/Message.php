@@ -11,7 +11,8 @@ class Application_Model_DbTable_Message extends Zend_Db_Table_Abstract{
             'sender_id' => $userId ,
             'out' => $message ,
             'in' => $message ,
-            'recipient_id' => $user
+            'recipient_id' => $user,
+            'sender_status' => 1
 
         );
 
@@ -19,5 +20,14 @@ class Application_Model_DbTable_Message extends Zend_Db_Table_Abstract{
 
     }
 
+    public function checkNewMessage($id){
+
+        $result = $this->select()
+                       ->from('messages' , array('id'))
+                       ->where('recipient_id = ?', $id);
+
+        $data = $result->query();
+        return $data->fetchAll();
+    }
 }
 
